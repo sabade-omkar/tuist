@@ -33,8 +33,6 @@ extension LoggingConfig {
 }
 
 public enum LogOutput {
-    static var environment = ProcessInfo.processInfo.environment
-
     public static func bootstrap(config: LoggingConfig = .default) {
         let handler: VerboseLogHandler.Type
 

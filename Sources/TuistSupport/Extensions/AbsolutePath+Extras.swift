@@ -3,8 +3,6 @@ import Foundation
 import TSCBasic
 import UniformTypeIdentifiers
 
-let systemGlob = Darwin.glob
-
 public enum GlobError: FatalError, Equatable {
     case nonExistentDirectory(InvalidGlob)
 
