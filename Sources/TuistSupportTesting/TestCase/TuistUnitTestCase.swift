@@ -13,6 +13,10 @@ open class TuistUnitTestCase: TuistTestCase {
         // System
         system = MockSystem()
         System.shared = system
+        
+        // Xcode controller
+        xcodeController = MockXcodeController()
+        XcodeController.shared = xcodeController
 
         // Developer environment
         developerEnvironment = MockDeveloperEnvironment()
@@ -27,6 +31,10 @@ open class TuistUnitTestCase: TuistTestCase {
         // Environment
         environment = nil
         Environment.shared = Environment()
+        
+        // Xcode controller
+        xcodeController = nil
+        XcodeController.shared = XcodeController()
 
         // Developer environment
         developerEnvironment = nil
