@@ -1073,6 +1073,7 @@ struct PackageInfoMapperTests {
                         .test(
                             "Target2",
                             basePath: basePath,
+                            product: .unitTests,
                             dependencies: [.target(name: "Target_1")]
                         ),
                     ]

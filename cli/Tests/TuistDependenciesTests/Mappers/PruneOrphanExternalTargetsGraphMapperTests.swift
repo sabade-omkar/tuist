@@ -33,6 +33,7 @@ final class PruneOrphanExternalTargetsGraphMapperTests: TuistUnitTestCase {
             product: .app
         )
         let packageDevProduct = Target.test(name: "DevPackage", destinations: [.iPhone], product: .app)
+        let packageDevTestProduct = Target.test(name: "DevPackageTests", destinations: [.iPhone], product: .unitTests)
         let packageProject = Project.test(
             path: try! AbsolutePath(validating: "/Package"),
             name: "Package",
@@ -41,6 +42,7 @@ final class PruneOrphanExternalTargetsGraphMapperTests: TuistUnitTestCase {
                 transitivePackageProduct,
                 transitivePackageProductWithNoDestinations,
                 packageDevProduct,
+                packageDevTestProduct,
             ],
             type: .external(hash: nil)
         )
@@ -84,6 +86,10 @@ final class PruneOrphanExternalTargetsGraphMapperTests: TuistUnitTestCase {
         XCTAssertEqual(
             gotGraph.projects[packageProject.path]?.targets[packageDevProduct.name]?.metadata.tags.contains("tuist:prunable"),
             true
+        )
+        XCTAssertEqual(
+            gotGraph.projects[packageProject.path]?.targets[packageDevTestProduct.name]?.metadata.tags.contains("tuist:prunable"),
+            false
         )
         XCTAssertEqual(
             gotGraph.projects[packageProject.path]?.targets[transitivePackageProductWithNoDestinations.name]?.metadata.tags

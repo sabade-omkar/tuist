@@ -138,11 +138,18 @@ public struct FocusTargetsGraphMappers: GraphMapping {
         )
         filteredTargets.formUnion(additionalTargets)
 
+        let preserveUnfilteredUnitTests = includedProducts.isEmpty && schemeName == nil
+
         graph.projects = graph.projects.mapValues { project in
             var project = project
             project.targets = project.targets.mapValues { target in
                 var target = target
-                if !filteredTargets.contains(GraphTarget(path: project.path, target: target, project: project)) {
+
+                let isFilteredTarget = filteredTargets.contains(
+                    GraphTarget(path: project.path, target: target, project: project)
+                )
+                let isUnfilteredUnitTest = preserveUnfilteredUnitTests && target.product == .unitTests
+                if !isFilteredTarget && !isUnfilteredUnitTest {
                     target.metadata.tags.formUnion(["tuist:prunable"])
                 }
                 return target
