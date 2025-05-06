@@ -50,7 +50,7 @@ public class ResourcesProjectMapper: ProjectMapping { // swiftlint:disable:this 
                 destinations: target.destinations,
                 product: .bundle,
                 productName: bundleName,
-                bundleId: "\(target.bundleId).resources",
+                bundleId: "\(target.bundleId).generated.resources",
                 deploymentTargets: target.deploymentTargets,
                 infoPlist: .extendingDefault(with: [:]),
                 settings: Settings(
@@ -58,6 +58,7 @@ public class ResourcesProjectMapper: ProjectMapping { // swiftlint:disable:this 
                         "CODE_SIGNING_ALLOWED": "NO",
                         "SKIP_INSTALL": "YES",
                         "GENERATE_MASTER_OBJECT_FILE": "NO",
+                        "VERSIONING_SYSTEM": "",
                     ],
                     configurations: [:]
                 ),
@@ -196,7 +197,11 @@ public class ResourcesProjectMapper: ProjectMapping { // swiftlint:disable:this 
         // swiftlint:disable all
         // swift-format-ignore-file
         // swiftformat:disable all
+        #if hasFeature(InternalImportsByDefault)
+        public import Foundation
+        #else
         import Foundation
+        #endif
         \(bundleAccessor)
         \(publicBundleAccessor)
         // swiftformat:enable all

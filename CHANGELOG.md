@@ -1,5 +1,43 @@
 # Changelog
 
+## 4.49.0 - 2025-05-05
+
+### CLI
+
+#### Changed
+
+- Include available organizations in tuist init [#7530](https://github.com/tuist/tuist/pull/7530) by [@vkondrashkov](https://github.com/vkondrashkov)
+
+#### Added
+
+- Embed and sign dynamic frameworks for bundle targets [#7465](https://github.com/tuist/tuist/pull/7465) by [@ianhlavats](https://github.com/ianhlavats)
+
+#### Fixed
+
+- Enable testing search paths for IssueReportingTestSupport [#7524](https://github.com/tuist/tuist/pull/7524) by [@fdzsergio](https://github.com/fdzsergio)
+
+### CLI (Server features)
+
+- no changes
+
+## 4.48.2 - 2025-04-23
+
+### CLI
+
+#### Fixed
+
+- Fix missing sources build phase for some products when no build files present [#7501](https://github.com/tuist/tuist/pull/7501) by [@fortmarek](https://github.com/fortmarek)
+- Add support for tvOS bundle icon format [#7498](https://github.com/tuist/tuist/pull/7498) by [@vkondrashkov](https://github.com/vkondrashkov)
+- Fix hashing of XCFrameworks with relative symlinks [#7507](https://github.com/tuist/tuist/pull/7507) by [@fortmarek](https://github.com/fortmarek)
+- Fix sending tuist xcodebuild insights [#7516](https://github.com/tuist/tuist/pull/7516) by [@fortmarek](https://github.com/fortmarek)
+- Fix unstable hash when a dependency is resolved both via registry and scm [#7518](https://github.com/tuist/tuist/pull/7518) by [@fortmarek](https://github.com/fortmarek)
+- Do not treat generated resource bundles as plugins [#7479](https://github.com/tuist/tuist/pull/7479) by [@PaulTaykalo](https://github.com/PaulTaykalo)
+- Fix bundles including executables [#7490](https://github.com/tuist/tuist/pull/7490) by [@fdzsergio](https://github.com/fdzsergio)
+
+### CLI (Server features)
+
+- no changes
+
 ## 4.48.1 - 2025-04-14
 
 ### CLI
