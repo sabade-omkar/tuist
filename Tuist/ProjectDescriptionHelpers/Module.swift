@@ -128,7 +128,7 @@ public enum Module: String, CaseIterable {
         switch self {
         case .tuist, .tuistBenchmark, .tuistFixtureGenerator:
             return .commandLineTool
-        case .projectAutomation, .projectDescription:
+        case .projectAutomation:
             return .framework
         default:
             return .staticFramework

@@ -427,7 +427,7 @@ let package = Package(
         .executable(name: "tuist", targets: ["tuist"]),
         .library(
             name: "ProjectDescription",
-            type: .dynamic,
+            type: .static,
             targets: ["ProjectDescription"]
         ),
         .library(
