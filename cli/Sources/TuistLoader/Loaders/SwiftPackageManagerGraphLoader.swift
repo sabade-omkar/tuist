@@ -232,14 +232,20 @@ public struct SwiftPackageManagerGraphLoader: SwiftPackageManagerGraphLoading {
         )
 
         let packageModuleAliases = mutablePackageModuleAliases
+        let localPackageKinds: Set<String> = ["local", "fileSystem", "localSourceControl"]
         let mappedPackageInfos = try await packageInfos.concurrentMap { packageInfo in
-            (
+            let isLocal = localPackageKinds.contains(packageInfo.kind)
+            let packageType: PackageType = isLocal
+                ? .local
+                : .external(artifactPaths: packageToTargetsToArtifactPaths[packageInfo.name] ?? [:])
+            return (
                 packageInfo: packageInfo,
                 hash: packageInfo.hash,
+                isLocal: isLocal,
                 projectManifest: try await packageInfoMapper.map(
                     packageInfo: packageInfo.info,
                     path: packageInfo.folder,
-                    packageType: .external(artifactPaths: packageToTargetsToArtifactPaths[packageInfo.name] ?? [:]),
+                    packageType: packageType,
                     packageSettings: packageSettings,
                     packageModuleAliases: packageModuleAliases,
                     enabledTraits: enabledTraitsPerPackage[packageInfo.id] ?? []
@@ -248,11 +254,12 @@ public struct SwiftPackageManagerGraphLoader: SwiftPackageManagerGraphLoading {
         }
         let externalProjects: [Path: DependenciesGraph.ExternalProject] = mappedPackageInfos
             .reduce(into: [:]) { result, item in
-                let (packageInfo, hash, projectManifest) = item
+                let (packageInfo, hash, isLocal, projectManifest) = item
                 if let projectManifest {
                     result[.path(packageInfo.folder.pathString)] = DependenciesGraph.ExternalProject(
                         manifest: projectManifest,
-                        hash: hash
+                        hash: hash,
+                        sourcePackageType: isLocal ? .local : .remote
                     )
                 }
             }

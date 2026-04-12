@@ -7,13 +7,20 @@ import ProjectDescription
 
 /// A directed acyclic graph (DAG) that Tuist uses to represent the dependency tree.
 public struct DependenciesGraph: Equatable, Codable { // swiftlint:disable:this type_body_length
+    public enum SourcePackageType: Equatable, Codable, Sendable {
+        case local
+        case remote
+    }
+
     public struct ExternalProject: Equatable, Codable {
         public var manifest: ProjectDescription.Project
         public var hash: String?
+        public var sourcePackageType: SourcePackageType
 
-        public init(manifest: ProjectDescription.Project, hash: String?) {
+        public init(manifest: ProjectDescription.Project, hash: String?, sourcePackageType: SourcePackageType = .remote) {
             self.manifest = manifest
             self.hash = hash
+            self.sourcePackageType = sourcePackageType
         }
     }
 
